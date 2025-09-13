@@ -20,7 +20,6 @@ export default function App() {
 
   const [coupon, setCoupon] = useState("");
   const [message, setMessage] = useState("");
-  const [usedEmails, setUsedEmails] = useState([]); // ✅ Track used emails
 
   // Countdown simulation
   useEffect(() => {
@@ -52,28 +51,18 @@ export default function App() {
   };
 
   const handleCoupon = () => {
+    // Check if all form fields except note are filled
     const { name, age, car, city, email } = formData;
-
-    // Required fields check
     if (!name || !age || !car || !city || !email) {
       setMessage("❌ Please fill all the required fields to get the coupon.");
-      setCoupon(""); 
       return;
     }
 
-    // Check if email already used
-    if (usedEmails.includes(email)) {
-      setMessage("⚠️ This email has already claimed a coupon!");
-      setCoupon("");
-      return;
+    if (coupon === "Extra10") {
+      setMessage("🎉 Congratulations! You unlocked 10% OFF");
+    } else {
+      setMessage("❌ Invalid coupon code, try again.");
     }
-
-    // Auto-generate coupon
-    setCoupon("Extra10");
-    setMessage("🎉 Congratulations! You unlocked 10% OFF with code Extra10!");
-
-    // Save email to used list
-    setUsedEmails([...usedEmails, email]);
   };
 
   return (
@@ -81,7 +70,7 @@ export default function App() {
       <div>
         {/* Header */}
         <header>
-          <img src="/logo.png" alt="CarzzyCars.pk Logo" />
+          <img src="logo.png" alt="CarzzyCars.pk Logo" />
         </header>
 
         {/* Hero Section */}
@@ -105,10 +94,11 @@ export default function App() {
           </p>
           <input
             type="text"
-            placeholder="Coupon Code"
+            placeholder="Enter coupon code"
             value={coupon}
-            readOnly
+            onChange={(e) => setCoupon(e.target.value)}
           />
+          <button onClick={handleCoupon}>Apply</button>
           <div className="message">{message}</div>
         </div>
 
