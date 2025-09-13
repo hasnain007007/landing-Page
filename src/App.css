@@ -51,10 +51,11 @@ header {
 
 header img {
   width: 280px;
-  max-width: 70%; /* Slightly larger logo */
+  max-width: 80%; /* Slightly larger logo */
   filter: drop-shadow(0 0 20px var(--neon-blue)) drop-shadow(0 0 40px var(--neon-purple));
   transition: transform var(--transition-medium), filter var(--transition-medium);
 }
+
 header img:hover {
   transform: translateY(-8px) scale(1.08);
   filter: drop-shadow(0 0 30px var(--neon-blue)) drop-shadow(0 0 70px var(--neon-purple));
@@ -201,14 +202,18 @@ button:active {
   text-shadow: 0 0 5px #ff4500;
 }
 
-/* Subscribe Section */
 .subscribe {
-  flex-direction: row; /* Keep inputs and button inline */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  justify-content: center;
-  align-items: center;
-  gap: 15px; /* Spacing between input and button */
+  flex-direction: column; /* row → column */
+  align-items: stretch;  /* full width */
 }
+.subscribe input,
+.subscribe button {
+  width: 100%;
+  max-width: 400px; /* control width */
+}
+
+
+
 .subscribe input[type="email"] {
   flex-grow: 1; /* Allow email input to grow */
   min-width: 200px; /* Minimum width before wrapping */
@@ -251,6 +256,21 @@ footer a:hover {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ---------- Animations ---------- */
 @keyframes neonFloat {
   0% { transform: translateY(0px); text-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-purple); }
@@ -290,4 +310,59 @@ body {
   .coupon, .subscribe { padding: 20px; gap: 10px; }
   button { padding: 12px 20px; font-size: 14px; }
   footer { font-size: 13px; padding: 15px; }
+}
+
+
+
+/* ---------- Social Icons ---------- */
+.social-icons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.social-icons .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 8px;
+  background: rgba(0, 15, 30, 0.6);
+  border: 2px solid var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-purple);
+  transition: all var(--transition-medium);
+}
+
+.social-icons .icon:hover {
+  transform: scale(1.2) rotate(8deg);
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 25px var(--neon-blue), 0 0 50px var(--neon-purple);
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="number"] {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px 18px;
+  border-radius: var(--border-radius-medium);
+  border: 1px solid var(--glass-border);
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: all var(--transition-fast);
+  box-shadow: inset 0 0 8px rgba(0,245,255,0.1);
+}
+
+input[type="number"]::placeholder {
+  color: var(--text-muted);
+}
+
+/* Focus state same rakhna */
+input[type="number"]:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue), inset 0 0 15px var(--neon-blue);
+  background: rgba(0,0,0,0.5);
 }
