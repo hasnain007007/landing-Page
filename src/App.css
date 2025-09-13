@@ -50,11 +50,11 @@ header {
 }
 
 header img {
-  width: 980px;
-  height: 600px;
-  padding: -90%;
-  margin: -20%;
-  max-width: 80%; /* Slightly larger logo */
+  width: 480px;
+  /* height: 600px; */
+  /* padding: -90%; */
+  margin: -40%;
+  max-width: 80; /* Slightly larger logo */
   filter: drop-shadow(0 0 20px var(--neon-blue)) drop-shadow(0 0 40px var(--neon-purple));
   transition: transform var(--transition-medium), filter var(--transition-medium);
 }
