@@ -2,12 +2,34 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 
 export default function App() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 5,
-    hours: 12,
-    minutes: 30,
-    seconds: 45,
-  });
+  // Target date → 1 October 2025
+  const targetDate = new Date("2025-10-01T00:00:00").getTime();
+
+  const calculateTimeLeft = () => {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
+
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,37 +43,11 @@ export default function App() {
   const [coupon, setCoupon] = useState("");
   const [message, setMessage] = useState("");
 
-  // Countdown simulation
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        let newSeconds = prev.seconds - 1;
-        let { days, hours, minutes } = prev;
-        if (newSeconds < 0) {
-          newSeconds = 59;
-          minutes -= 1;
-        }
-        if (minutes < 0) {
-          minutes = 59;
-          hours -= 1;
-        }
-        if (hours < 0) {
-          hours = 23;
-          days -= 1;
-        }
-        return { days, hours, minutes, seconds: newSeconds };
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleCoupon = () => {
-    // Check if all form fields except note are filled
     const { name, age, car, city, email } = formData;
     if (!name || !age || !car || !city || !email) {
       setMessage("❌ Please fill all the required fields to get the coupon.");
