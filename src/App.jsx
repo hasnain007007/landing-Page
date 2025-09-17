@@ -148,7 +148,7 @@ export default function App() {
 
         {/* Footer */}
         <footer>
-          <p>📧 support@carzzycars.pk | 📞 03284010007</p>
+          <p>📧 support@carzzycars.pk | 📞 +92 328 4010 007</p>
 
           {/* Social Media Icons */}
           <div className="social-icons">
